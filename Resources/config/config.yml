@@ -1,0 +1,35 @@
+# import services
+imports:
+    - { resource: "@DufCoreBundle/Resources/config/services.yml" }
+
+# Doctrine configuration
+doctrine:
+    orm:
+        mappings:
+            gedmo_translatable:
+                type: annotation
+                prefix: Gedmo\Translatable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+                alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
+                is_bundle: false
+
+# Stof Doctrine Extensions configuration
+stof_doctrine_extensions:
+    default_locale: en_US
+
+    orm:
+        default:
+            translatable: true
+            sluggable: true
+
+# hwi OAuth Bundle configuration
+hwi_oauth:
+    firewall_names: [duf_oauth]
+    resource_owners:
+        facebook:
+            type:            facebook
+            client_id:       138907539888424
+            client_secret:   1b4ab2dad98e3942cfbc32b508657b1a
+            scope: "email"
+            options:
+                csrf: true

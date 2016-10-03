@@ -1,0 +1,31 @@
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /oauth/connect
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix:   /oauth/connect
+
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /oauth/login
+
+duf_oauth_routing:
+    resource: "@DufCoreBundle/Resources/config/routing/routing_oauth.yml"
+    prefix:   /oauth
+
+duf_core_homepage:
+    path:     /
+    defaults: { _controller: DufCoreBundle:Default:index }
+
+duf_core_sitemap:
+    path:    /sitemap.xml
+    defaults: { _controller: DufCoreBundle:Sitemap:index }
+
+duf_core_sitemap_file:
+    path:    /{entity_name}-sitemap.xml
+    defaults: { _controller: DufCoreBundle:Sitemap:file }
+
+duf_core_sitemap_statics:
+    path:    /{entity_name}-sitemap.xml
+    defaults: { _controller: DufCoreBundle:Sitemap:file, entity_name: "static_urls" }

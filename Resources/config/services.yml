@@ -1,0 +1,45 @@
+services:
+    hwi_oauth.user.provider.entity:
+        class: HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider
+
+    app.locale_listener:
+        class: Duf\CoreBundle\EventListener\LocaleListener
+        arguments: ['%kernel.default_locale%']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    duf_core.controller_notification_listener:
+        class: Duf\CoreBundle\EventListener\ControllerNotificationListener
+        arguments: ['@duf_core.dufcorenotification', '@doctrine.orm.entity_manager', '@service_container', '@security.token_storage']
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: listenControllerNotifications }
+
+    duf_core.doctrine_notification_listener:
+        class: Duf\CoreBundle\EventListener\DoctrineNotificationSubscriber
+        arguments: ['@service_container']
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    duf_core.dufcoreconfig:
+        class: Duf\CoreBundle\Service\DufCoreConfig
+        arguments: ['@service_container']
+
+    duf_core.dufcoresitemap:
+        class: Duf\CoreBundle\Service\DufCoreSitemap
+        arguments: ['@doctrine.orm.entity_manager', '@service_container', '@router']
+
+    duf_core.dufcoreentitytools:
+        class: Duf\CoreBundle\Service\DufCoreEntityTools
+        arguments: ['@doctrine.orm.entity_manager', '@service_container']
+
+    duf_core.dufcoretranslation:
+        class: Duf\CoreBundle\Service\DufCoreTranslation
+        arguments: ['@doctrine.orm.entity_manager', '@service_container']
+
+    duf_core.dufcoreseo:
+        class: Duf\CoreBundle\Service\DufCoreSeo
+        arguments: ['@doctrine.orm.entity_manager', '@service_container']
+
+    duf_core.dufcorenotification:
+        class: Duf\CoreBundle\Service\DufCoreNotification
+        arguments: ['@doctrine.orm.entity_manager', '@service_container']
