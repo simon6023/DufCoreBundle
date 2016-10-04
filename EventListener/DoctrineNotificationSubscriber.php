@@ -41,7 +41,8 @@ class DoctrineNotificationSubscriber implements EventSubscriber
 
 	public function index(LifecycleEventArgs $args, $action)
     {
-    	$user 						= $this->container->get('security.token_storage')->getToken()->getUser();
+    	$token 						= $this->container->get('security.token_storage')->getToken();
+    	$user 						= (null !== $token && null !== $token->getUser()) ? $token->getUser() : null;
     	$em 						= $args->getEntityManager();
         $entity 					= $args->getEntity();
         $notification_types 		= $this->container->get('duf_core.dufcorenotification')->getNotificationTypesForListener('doctrine', get_class($entity), $action);
