@@ -36,7 +36,8 @@ class ControllerNotificationListener
 		if (!isset($request_controller[1]))
 			return;
 
-		$user 					= $this->token_storage->getToken()->getUser();
+		$token 					= $this->token_storage->getToken();
+		$user 					= (null !== $token) ? $token->getUser() : null;
 		$controller_class 		= $request_controller[0];
 		$controller_action 		= $request_controller[1];
 		$notification_types 	= $this->notification_service->getNotificationTypesForListener('controller', $controller_class, $controller_action, $user);
