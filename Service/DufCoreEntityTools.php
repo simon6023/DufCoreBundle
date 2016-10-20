@@ -73,9 +73,25 @@ class DufCoreEntityTools
                 }
 
                 // check plural for property
-                $property = rtrim($property, 's');
-                if (strtolower($method_check) == $property) {
+                $property_check = rtrim($property, 's');
+                if (strtolower($method_check) == $property_check) {
                     return $method;
+                }
+
+                // check plural for y => ies
+                $property       = rtrim($property, 'y');
+                $property_end   = substr($property, strlen($property) - 3, strlen($property));
+
+                if ($property_end == 'ies') {
+                    $property_start     = substr($property, 0, strlen($property) - 3);
+                    $property_check     = $property_start . 'y';
+
+                    if (strtolower($method_check) == $property) {
+                        return $method;
+                    }
+                    if (strtolower($method_check) == $property_check) {
+                        return $method;
+                    }
                 }
             }
         }
