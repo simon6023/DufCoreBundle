@@ -15,7 +15,7 @@ duf_oauth_routing:
     prefix:   /oauth
 
 duf_core_homepage:
-    path:     /
+    path:     /dufcore
     defaults: { _controller: DufCoreBundle:Default:index }
 
 duf_core_sitemap:
