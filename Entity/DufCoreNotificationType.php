@@ -5,6 +5,7 @@ namespace Duf\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Duf\AdminBundle\Entity\DufAdminEntity;
+use Duf\AdminBundle\Model\DufAdminUserRoleInterface;
 
 use Duf\AdminBundle\Annotations\IndexableAnnotation as Indexable;
 use Duf\AdminBundle\Annotations\EditableAnnotation as Editable;
@@ -15,7 +16,7 @@ use Duf\AdminBundle\Annotations\EditableAnnotation as Editable;
  * @ORM\Table(name="duf_core_notification_type")
  * @ORM\Entity(repositoryClass="Duf\CoreBundle\Entity\Repository\DufCoreNotificationTypeRepository")
  */
-class DufCoreNotificationType extends DufAdminEntity
+class DufCoreNotificationType extends DufAdminEntity implements DufAdminUserRoleInterface
 {
     /**
      * @var string
@@ -44,8 +45,9 @@ class DufCoreNotificationType extends DufAdminEntity
     private $priority;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Duf\AdminBundle\Entity\UserRole")
+     * @ORM\ManyToOne(targetEntity="Duf\AdminBundle\Model\DufAdminUserRoleInterface")
      * @Editable(is_editable=true, label="Access Level", required=false, type="entity", order=4, relation_index="name", empty_value=true)
+     * @var DufAdminUserRoleInterface
      */
     private $accessLevel;
 
@@ -255,11 +257,11 @@ class DufCoreNotificationType extends DufAdminEntity
     /**
      * Set accessLevel
      *
-     * @param \Duf\AdminBundle\Entity\UserRole $accessLevel
+     * @param \Duf\AdminBundle\Model\DufAdminUserRoleInterface $accessLevel
      *
      * @return DufCoreNotificationType
      */
-    public function setAccessLevel(\Duf\AdminBundle\Entity\UserRole $accessLevel = null)
+    public function setAccessLevel(\Duf\AdminBundle\Model\DufAdminUserRoleInterface $accessLevel = null)
     {
         $this->accessLevel = $accessLevel;
 
@@ -269,7 +271,7 @@ class DufCoreNotificationType extends DufAdminEntity
     /**
      * Get accessLevel
      *
-     * @return \Duf\AdminBundle\Entity\UserRole
+     * @return \Duf\AdminBundle\Model\DufAdminUserRoleInterface
      */
     public function getAccessLevel()
     {

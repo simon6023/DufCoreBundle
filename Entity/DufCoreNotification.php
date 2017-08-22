@@ -5,6 +5,7 @@ namespace Duf\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Duf\AdminBundle\Entity\DufAdminEntity;
+use Duf\AdminBundle\Model\DufAdminUserInterface;
 
 /**
  * DufCoreNotification
@@ -12,7 +13,7 @@ use Duf\AdminBundle\Entity\DufAdminEntity;
  * @ORM\Table(name="duf_core_notification")
  * @ORM\Entity(repositoryClass="Duf\CoreBundle\Entity\Repository\DufCoreNotificationRepository")
  */
-class DufCoreNotification extends DufAdminEntity
+class DufCoreNotification extends DufAdminEntity implements DufAdminUserInterface
 {
     /**
      * @ORM\Column(name="is_read", type="boolean")
@@ -30,13 +31,14 @@ class DufCoreNotification extends DufAdminEntity
      * @ORM\ManyToOne(targetEntity="Duf\CoreBundle\Entity\DufCoreNotificationType")
      * @ORM\JoinColumn(nullable=false)
      */
-     protected $notification_type;
+     private $notification_type;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Duf\AdminBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Duf\AdminBundle\Model\DufAdminUserInterface")
      * @ORM\JoinColumn(nullable=true)
+     * @var DufAdminUserInterface
      */
-     protected $created_by;
+     private $created_by;
 
     /**
      * Set isRead
@@ -65,7 +67,7 @@ class DufCoreNotification extends DufAdminEntity
     /**
      * Set notificationData
      *
-     * @param string $notificationData
+     * @param array $notificationData
      *
      * @return DufCoreNotification
      */
@@ -79,7 +81,7 @@ class DufCoreNotification extends DufAdminEntity
     /**
      * Get notificationData
      *
-     * @return string
+     * @return array
      */
     public function getNotificationData()
     {
@@ -113,11 +115,11 @@ class DufCoreNotification extends DufAdminEntity
     /**
      * Set createdBy
      *
-     * @param \Duf\AdminBundle\Entity\User $createdBy
+     * @param \Duf\AdminBundle\Model\DufAdminUserInterface $createdBy
      *
      * @return DufCoreNotification
      */
-    public function setCreatedBy(\Duf\AdminBundle\Entity\User $createdBy = null)
+    public function setCreatedBy(\Duf\AdminBundle\Model\DufAdminUserInterface $createdBy = null)
     {
         $this->created_by = $createdBy;
 
@@ -127,7 +129,7 @@ class DufCoreNotification extends DufAdminEntity
     /**
      * Get createdBy
      *
-     * @return \Duf\AdminBundle\Entity\User
+     * @return \Duf\AdminBundle\Model\DufAdminUserInterface
      */
     public function getCreatedBy()
     {

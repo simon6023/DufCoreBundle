@@ -1,0 +1,50 @@
+<?php
+
+namespace Duf\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * DufCoreCronTaskTrace
+ *
+ * @ORM\Table(name="duf_core_cron_task_trace")
+ * @ORM\Entity(repositoryClass="Duf\CoreBundle\Entity\Repository\DufCoreCronTaskTraceRepository")
+ */
+class DufCoreCronTaskTrace
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="started_at", type="datetime")
+     */
+    private $startedAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="ended_at", type="datetime")
+     */
+    private $endedAt;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="duration", type="float")
+     */
+    private $duration;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Duf\CoreBundle\Entity\DufCoreCronTask")
+     * @ORM\JoinColumn(nullable=true)
+     */
+     protected $cronTask;
+}
